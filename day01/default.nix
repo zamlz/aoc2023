@@ -41,6 +41,8 @@
 # 
 # Consider your entire calibration document. What is the sum of all of the
 # calibration values?
+#
+# My answers: { outputPart1 = 57346; outputPart2 = 57345; }
 
 with (import <nixpkgs> {});
 let
@@ -48,11 +50,22 @@ let
     lib.splitString "\n" fileContents;
   
   convertStringDigits = text: # text: Str -> text: Str
-    lib.foldl (acc: x: 
-        builtins.replaceStrings 
-        ["zero" "one" "two" "three" "four" "five" "six" "seven" "eight" "nine"]
-        ["z0o"  "o1e" "t2o" "t3e"   "f4r"  "f5e"  "s6x" "s7n"   "e8t"   "n9e" ]
-        acc) text (lib.range 0 (lib.stringLength text));
+    lib.foldl
+      (acc: replacement:
+        builtins.replaceStrings [(lib.head replacement)] [(lib.last replacement)]
+        acc)
+      text [
+        ["zero" "z0o"]
+        ["one" "o1e"]
+        ["two" "t2o"]
+        ["three" "t3e"]
+        ["four" "f4r"]
+        ["five" "f5e"]
+        ["six" "s6x"]
+        ["seven" "s7n"]
+        ["eight" "e8t"]
+        ["nine" "n9e"]
+      ];
   
   parseDigit = line: # line: String -> digitList: List[Str]
     lib.filter (c: c >= "0" && c <= "9") (lib.splitString "" line);
@@ -73,7 +86,7 @@ let
     fileSplitLines (lib.fileContents file);
 
   part2ReadFile = file: # file: Path -> fileSplitContents: List[Str]
-    map convertStringDigits (fileSplitLines (lib.fileContents file));
+    fileSplitLines (convertStringDigits (lib.fileContents file));
 
 in {
   outputPart1 = computeSumCalValue (part1ReadFile ./input);
