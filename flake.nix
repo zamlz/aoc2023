@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Advent of Code 2023";
 
   outputs = { self, nixpkgs }: {
 
