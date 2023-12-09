@@ -75,13 +75,7 @@ let
   part2ReadFile = file: # file: Path -> fileSplitContents: List[Str]
     map convertStringDigits (fileSplitLines (lib.fileContents file));
 
-  computePart1 = file: # file: Path -> SumCalValue: Int
-    computeSumCalValue (part1ReadFile file);
-
-  computePart2 = file: # file: Path -> SumCalValue: Int
-    computeSumCalValue (part2ReadFile file);
-
 in {
-  outputPart1 = computePart1 ./input;
-  outputPart2 = computePart2 ./input;
+  outputPart1 = computeSumCalValue (part1ReadFile ./input);
+  outputPart2 = computeSumCalValue (part2ReadFile ./input);
 }
