@@ -101,19 +101,19 @@ let
         lib.toInt (builtins.replaceStrings ["Game "] [""] gameIdStr);
       parseCubeData = cubeData:
         let
-	  cubeDataList = lib.splitString " " cubeData;
-	  cubeCount = lib.toInt (lib.head cubeDataList);
-	  cubeColor = lib.last cubeDataList;
-	in { name = cubeColor; value = cubeCount; };
+          cubeDataList = lib.splitString " " cubeData;
+          cubeCount = lib.toInt (lib.head cubeDataList);
+          cubeColor = lib.last cubeDataList;
+        in { name = cubeColor; value = cubeCount; };
       parseSetData = setData:
         builtins.listToAttrs (map parseCubeData (lib.splitString ", " setData));
       parseSetList = setListStr:
-      	map parseSetData (lib.splitString "; " setListStr);
+        map parseSetData (lib.splitString "; " setListStr);
       makeAttrSet = keyValSplit:
         {
-	  gameId = parseGameId (lib.head keyValSplit);
-	  sets = parseSetList (lib.last keyValSplit);
-	};
+          gameId = parseGameId (lib.head keyValSplit);
+          sets = parseSetList (lib.last keyValSplit);
+        };
     in map makeAttrSet keyValSplitList;
 
   bagState = {
