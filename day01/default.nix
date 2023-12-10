@@ -103,7 +103,7 @@ let
       "0";
   
   sumCalValuesList = calValuesList: # calValuesList: List[Str] -> Int
-    lib.foldl (acc: x: acc + x) 0 (map lib.toInt calValuesList);
+    lib.foldl lib.add 0 (map lib.toInt calValuesList);
   
   computeSumCalValue = fileSplitContents: # fileSplitContents: List[Str] -> Int
     (sumCalValuesList (map parseCalValue (map parseDigit fileSplitContents)));
