@@ -52,8 +52,6 @@
 # 
 # Your puzzle answer was 2285.
 # 
-# The first half of this puzzle is complete! It provides one gold star: *
-# 
 # --- Part Two ---
 # 
 # The Elf says they've stopped producing snow because they aren't getting any
@@ -89,8 +87,6 @@
 # is the sum of the power of these sets?
 #
 # Your puzzle answer was 77021.
-#
-# Both parts of this puzzle are complete! They provide two gold stars: **
 
 
 with (import <nixpkgs> {});
